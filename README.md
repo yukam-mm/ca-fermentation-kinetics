@@ -1,26 +1,17 @@
 # ca-fermentation-kinetics
 
-A small, self-contained, well-documented tool that fits two classic
-mechanistic models to clavulanic-acid (CA) fermentation data from
-*Streptomyces clavuligerus*:
+This started with a question from my BSc thesis: strains 33 and H of
+*Streptomyces clavuligerus* gave different clavulanic-acid (CA) yields —
+but is that a growth difference or a production difference? Two
+mechanistic models can still answer it honestly. However, five
+timepoints, no replicates, can't answer that with statistics.
 
-* **Logistic growth** for biomass `X(t)` — 3 parameters (`X0`, `Xmax`, `mu`)
-* **Luedeking–Piret** for product `P(t)`, driven by the fitted biomass —
-  2 parameters (`alpha`, `beta`)
+* **Logistic growth** for biomass — `X0`, `Xmax`, `mu`
+* **Luedeking–Piret** for CA formation — `alpha` (from active growth),
+  `beta` (from standing biomass)
 
-It then compares parent strain **33** against 
-**H**, reports every parameter with its standard error, and is deliberately
-honest about what five unreplicated datapoints can and cannot support.
-
-
-## Why mechanistic models, not machine learning?
-
-The time-series is **5 points per strain with no replicates**. A neural
-network or tree ensemble on that data would fit noise and report nothing
-biologically meaningful. Two small models with **interpretable parameters**
-(a growth rate, a carrying capacity, a growth-associated and a non-growth-
-associated production coefficient) are the responsible choice — and the
-parameters themselves tell the biological story.
+Every parameter ships with its standard error. 
+No ML here — five points would just get memorised, not modelled.
 
 ## Install
 
@@ -75,7 +66,7 @@ python tests/test_models.py     # standalone, no pytest needed
 | Carrying capacity `Xmax` (%PMV) | ~30.9 | ~27.4 |
 | Non-growth CA coeff. `beta` | ~0.110 | ~0.066 *(rel. SE 49%)* |
 
-Read narratively: strain 33 grows ~22% faster, reaches higher biomass, and
+Strain 33 grows ~22% faster, reaches higher biomass, and
 its standing biomass is the more productive CA factory (larger `beta`) —
 consistent with CA being a stationary-phase secondary metabolite.
 
@@ -95,5 +86,7 @@ direction of the effect; we do **not** claim statistical significance.
 * The logistic `mu` is phenomenological, not a fundamental physiological
   growth constant.
 * High R² on 5 points is weak evidence, never proof.
+
+
 
 
