@@ -1,0 +1,9 @@
+# Core scientific stack. Versions are lower bounds known to work;
+# newer versions are generally fine.
+numpy>=1.24
+scipy>=1.10
+matplotlib>=3.7
+
+# Optional: only needed to run the test suite via `pytest`.
+# The tests also run standalone: `python tests/test_models.py`
+pytest>=7.0
